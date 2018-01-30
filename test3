@@ -1,0 +1,78 @@
+<html>
+<h2>Entered Details: </h2>
+<table>
+<tr>
+<td> Name : </td>
+<td><?php echo ($_POST["fname"]) . "<br>"; ?></td>
+</tr>
+<tr>
+<td>
+<p> Email : </p>
+</td>
+<td>
+<?php echo($_POST["email"]) . "<br>"; ?>
+</td></tr>
+<tr>
+<td>
+<p> Age : </p> </td>
+<td>
+<?php echo($_POST["age"]) . "<br>" ; ?> </td> </tr>
+<tr>
+
+<td><p> Addr1 : </p></td>
+<td>
+<?php echo($_POST["addr"]) . "<br>"; ?> </td></tr>
+<tr>
+<td>
+<p> Addr2 : </p></td>
+<td>
+<?php echo($_POST["addr2"]) . "<br>"; ?></td></tr>
+<tr>
+<td>
+<p> Addr3 : </p></td>
+<td>
+<?php echo($_POST["addr3"]) . "<br>"; ?> </td> </tr>
+</table>
+<?php
+ 
+//print_r($_POST["fname"]);die;
+ if ($_SERVER["REQUEST_METHOD"] == "POST")
+ {
+		$name =   $_POST["fname"];
+		$email =  $_POST["email"];
+		$age =    $_POST["age"];
+		$addr =   $_POST["addr"];
+		$addr2 =  $_POST["addr2"];
+		$addr3 =  $_POST["addr3"];
+}
+
+$servername = "dockerhost";
+$username = "root";
+$password = "mysql";
+$database = "test";
+
+	$conn = new mysqli($servername, $username, $password, $database);
+
+	if( $conn->connect_error ){
+	die("connection failed: " . $conn->$connect_error );
+
+	}
+	else{
+		echo "connection created";
+	}
+	 
+	 $sql= "INSERT INTO detail(name, email, age, addr, addr2, addr3)
+	 		VALUES ('$name', '$email', '$age', '$addr', '$addr2', '$addr3') ";
+
+	 	if($conn->query($sql) === TRUE )
+	 	{
+			echo "inserted data successfully";
+		}
+		else {
+			echo "Error:" . $sql . "<br>" . $conn->error;
+		}
+$conn->close();
+
+?>
+<a href="test1.php" > go back </a>
+ </html>
